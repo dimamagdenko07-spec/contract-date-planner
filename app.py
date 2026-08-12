@@ -33,14 +33,13 @@ st.title('Планировщик дат')
 
 #Ввод
 target_date = st.date_input('Дата заключения договора:', value=date(2026, 11, 2))
-
 if target_date:
+    target_year = target_date.year
     #Получаем календарь
-    h_2025, w_2025 = get_ru_calendar(2025)
-    h_2026, w_2026 = get_ru_calendar(2026)
-    h_2027, w_2027 = get_ru_calendar(2027)
-    all_holidays = h_2025 + h_2026 + h_2027
-    all_workdays = w_2025 + w_2026 + w_2027
+    h_2025, w_2025 = get_ru_calendar(target_year-1)
+    h_2026, w_2026 = get_ru_calendar(target_year)
+    all_holidays = h_2025 + h_2026
+    all_workdays = w_2025 + w_2026
     #Создаём русский календарь
     russian_bussiness_days = pd.offsets.CustomBusinessDay(
         holidays=all_holidays,
